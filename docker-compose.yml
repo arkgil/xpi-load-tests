@@ -57,6 +57,7 @@ services:
     environment:
       - AMOC_GRAPHITE_HOST=graphite
       - 'AMOC_xmpp_servers={"mim-1","mim-2","mim-3"}'
+      - AMOC_http_service_url="http://api:3000"
     ports:
       - 4001:4000
   amoc-2:
@@ -69,6 +70,7 @@ services:
     environment:
       - AMOC_GRAPHITE_HOST=graphite
       - 'AMOC_xmpp_servers={"mim-1","mim-2","mim-3"}'
+      - AMOC_http_service_url="http://api:3000"
     ports:
       - 4002:4000
   graphite:
@@ -97,3 +99,9 @@ services:
     container_name: grafana
     ports:
       - '3000:3000'
+  api:
+    image: ajnasz/api-mock
+    volumes:
+      - ./volumes/apimock/api.md:/usr/src/app/api.md
+    hostname: api
+    container_name: api
