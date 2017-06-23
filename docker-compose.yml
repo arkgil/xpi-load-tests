@@ -1,0 +1,99 @@
+version: '3'
+services:
+  mim-1:
+    image: mongooseim/mongooseim:PR-1349
+    depends_on:
+      - amoc-control
+      - amoc-1
+      - amoc-2
+    hostname: mim-1
+    container_name: mim-1
+    volumes:
+      - ./volumes/mim1:/member
+    ports:
+      - '5222:5222'
+  mim-2:
+    image: mongooseim/mongooseim:PR-1349
+    depends_on:
+      - amoc-control
+      - amoc-1
+      - amoc-2
+    hostname: mim-2
+    container_name: mim-2
+    volumes:
+      - ./volumes/mim2:/member
+    ports:
+      - '5223:5222'
+  mim-3:
+    image: mongooseim/mongooseim:PR-1349
+    depends_on:
+      - amoc-control
+      - amoc-1
+      - amoc-2
+    hostname: mim-3
+    container_name: mim-3
+    volumes:
+      - ./volumes/mim3:/member
+    ports:
+      - '5224:5222'
+  amoc-control:
+    image: studzien/amoc
+    depends_on:
+      - graphite
+    hostname: amoc-control
+    container_name: amoc-control
+    environment:
+      - AMOC_GRAPHITE_HOST=graphite
+      - 'AMOC_HOSTS="amoc-1","amoc-2"'
+    ports:
+      - 4000:4000
+  amoc-1:
+    image: studzien/amoc
+    depends_on:
+      - amoc-control
+      - graphite
+    hostname: amoc-1
+    container_name: amoc-1
+    environment:
+      - AMOC_GRAPHITE_HOST=graphite
+      - 'AMOC_xmpp_servers={"mim-1","mim-2","mim-3"}'
+    ports:
+      - 4001:4000
+  amoc-2:
+    image: studzien/amoc
+    depends_on:
+      - amoc-control
+      - graphite
+    hostname: amoc-2
+    container_name: amoc-2
+    environment:
+      - AMOC_GRAPHITE_HOST=graphite
+      - 'AMOC_xmpp_servers={"mim-1","mim-2","mim-3"}'
+    ports:
+      - 4002:4000
+  graphite:
+    image: hopsoft/graphite-statsd
+    hostname: graphite
+    container_name: graphite
+    ports:
+      - 80:80
+      - 2003-2004:2003-2004
+      - 2023-2024:2023-2024
+      - 8125:8125/udp
+      - 8126:8126
+
+#  influx:
+#    image: influxdb
+#    hostname: influx
+#    container_name: influx
+#    ports:
+#      - '2003:2003'
+#      - '8086:8086'
+#    environment:
+#      - INFLUXDB_GRAPHITE_ENABLED=true
+  grafana:
+    image: grafana/grafana
+    hostname: grafana
+    container_name: grafana
+    ports:
+      - '3000:3000'
