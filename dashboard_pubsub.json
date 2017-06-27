@@ -77,7 +77,19 @@
           "targets": [
             {
               "refId": "A",
-              "target": "amoc.times.foreign_event_ack_time.max"
+              "target": "amoc1.amoc.times.foreign_event_ack_time.max"
+            },
+            {
+              "refId": "B",
+              "target": "amoc1.amoc.times.foreign_event_response_publish_time.max"
+            },
+            {
+              "refId": "C",
+              "target": "amoc2.amoc.times.foreign_event_ack_time.max"
+            },
+            {
+              "refId": "D",
+              "target": "amoc2.amoc.times.foreign_event_response_publish_time.max"
             }
           ],
           "thresholds": [],
@@ -161,11 +173,19 @@
           "targets": [
             {
               "refId": "A",
-              "target": "amoc.counters.foreign_events_sent.one"
+              "target": "amoc1.amoc.counters.foreign_events_sent.one"
             },
             {
               "refId": "B",
-              "target": "amoc.counters.messages_sent.one"
+              "target": "amoc2.amoc.counters.foreign_events_sent.one"
+            },
+            {
+              "refId": "C",
+              "target": "amoc1.amoc.counters.messages_sent.one"
+            },
+            {
+              "refId": "D",
+              "target": "amoc2.amoc.counters.messages_sent.one"
             }
           ],
           "thresholds": [],
@@ -249,7 +269,11 @@
           "targets": [
             {
               "refId": "A",
-              "target": "amoc.users.size"
+              "target": "amoc1.amoc.users.size"
+            },
+            {
+              "refId": "B",
+              "target": "amoc2.amoc.users.size"
             }
           ],
           "thresholds": [],
@@ -333,7 +357,11 @@
           "targets": [
             {
               "refId": "A",
-              "target": "amoc.counters.foreign_event_pubsub_nodes.count"
+              "target": "amoc2.amoc.counters.foreign_event_pubsub_nodes.count"
+            },
+            {
+              "refId": "B",
+              "target": "amoc1.amoc.counters.foreign_event_pubsub_nodes.count"
             }
           ],
           "thresholds": [],
@@ -379,6 +407,17 @@
       "showTitle": false,
       "title": "Dashboard Row",
       "titleSize": "h6"
+    },
+    {
+      "collapse": false,
+      "height": 250,
+      "panels": [],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "Dashboard Row",
+      "titleSize": "h6"
     }
   ],
   "schemaVersion": 14,
@@ -418,5 +457,5 @@
   },
   "timezone": "browser",
   "title": "xpi-foreign-event",
-  "version": 0
+  "version": 4
 }

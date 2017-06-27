@@ -44,6 +44,7 @@ services:
     container_name: amoc-control
     environment:
       - AMOC_GRAPHITE_HOST=graphite
+      - AMOC_PREFIX=amoc-control
       - 'AMOC_HOSTS="amoc-1","amoc-2"'
     ports:
       - 4000:4000
@@ -56,6 +57,7 @@ services:
     container_name: amoc-1
     environment:
       - AMOC_GRAPHITE_HOST=graphite
+      - AMOC_PREFIX=amoc1
       - 'AMOC_xmpp_servers={"mim-1","mim-2","mim-3"}'
       - AMOC_http_service_url="http://api:3000"
     ports:
@@ -69,6 +71,7 @@ services:
     container_name: amoc-2
     environment:
       - AMOC_GRAPHITE_HOST=graphite
+      - AMOC_PREFIX=amoc2
       - 'AMOC_xmpp_servers={"mim-1","mim-2","mim-3"}'
       - AMOC_http_service_url="http://api:3000"
     ports:
